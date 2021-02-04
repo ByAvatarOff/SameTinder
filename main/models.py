@@ -1,3 +1,48 @@
+from django.core.exceptions import ObjectDoesNotExist
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+from main import service
+
+
+class Profile(models.Model):
+    rate = (
+        ('Base', 'base'),
+        ('Premium', 'premium'),
+        ('VIP', 'vip'),
+    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    image = models.ImageField(upload_to='image/', null=True)
+    phone = models.CharField(max_length=30, null=True)
+    name = models.CharField(max_length=100, null=True)
+    surname = models.CharField(max_length=100, null=True)
+    ip = models.GenericIPAddressField(protocol='IPv4', default=service.get_ip())
+    group = models.CharField(max_length=100, choices=rate, default='base', null=True)
+
+    def __str__(self):
+        return self.user.username
+
+
+class AddContent(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Профиль')
+    image = models.ImageField(upload_to='image/profiles')
+    description = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.description
+
+
+@receiver(post_save, sender=User)
+def save_or_create_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    else:
+        try:
+            instance.profile.save()
+        except ObjectDoesNotExist:
+            Profile.objects.create(user=instance)
+
+
+
