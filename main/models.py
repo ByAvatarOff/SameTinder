@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.gis.db import models as gis_models
 
 from main import service
 
@@ -20,6 +21,7 @@ class Profile(models.Model):
     surname = models.CharField(max_length=100, null=True)
     ip = models.GenericIPAddressField(protocol='IPv4', default=service.get_ip())
     group = models.CharField(max_length=100, choices=rate, default='base', null=True)
+    geo_location = gis_models.PointField(srid=4326, null=True, blank=True, default=service.get_location())
 
     def __str__(self):
         return self.user.username

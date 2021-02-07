@@ -9,12 +9,26 @@ from main import service
 class ProfileListView(generics.ListAPIView):
     serializer_class = ProfileSerializer
     queryset = ''
+    permission_classes = [permissions.IsAuthenticated, ]
 
     def get_queryset(self):
+        print(service.get_location())
         return service.filter_group(request=self.request)
 
 
 class AddContentCreateView(generics.CreateAPIView):
     queryset = AddContent.objects.all()
     serializer_class = CreateAddContentSerializer
+
+
+
+class UpdateLocation(APIView):
+    def update(self, request, pk):
+        pass
+
+
+
+
+
+
 

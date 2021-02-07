@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
     'main',
 
     'rest_framework',
@@ -80,7 +81,7 @@ WSGI_APPLICATION = 'sametinder.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'tinder',
         'USER': 'postgres',
         'PASSWORD': '2612',
@@ -167,3 +168,9 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7)  # default
 }
+
+
+GDAL_LIBRARY_PATH = 'C:\\OSGeo4W64\\bin\\gdal301'
+
+GEOIP_PATH = os.path.join(BASE_DIR, 'geoip2')
+

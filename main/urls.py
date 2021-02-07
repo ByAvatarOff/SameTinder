@@ -4,6 +4,7 @@ from .views import *
 
 
 urlpatterns = [
+    # path('auth/', include('djoser.urls')),
     path('token/', TokenObtainPairView.as_view()),
     path('token/refresh/', TokenRefreshView.as_view()),
     path('profiles/', ProfileListView.as_view()),
