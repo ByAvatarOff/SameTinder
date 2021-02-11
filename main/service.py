@@ -5,6 +5,7 @@ import http.client
 
 from django.contrib.gis.geos import Point
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect
 from geoip2.errors import AddressNotFoundError
 from django.contrib.gis.measure import D
 from django.db.models import Q
@@ -53,10 +54,10 @@ def match(request, pk):
     try:
         like_profile = Profile.objects.get(pk=pk)
         owner_profile = Profile.objects.get(user=request.user)
-        like = Like.objects.get(profile=owner_profile, user=request.user) # обьекта лайка, которые лайкали юзера
+        like = Like.objects.get(profile=like_profile, user=request.user) # обьекта лайка, которые лайкали юзера
         like1 = Like.objects.get(profile=owner_profile, user=like_profile.user) # обьекты лайка, которые лайкал юзер
         if like.like and like1.like:
-            print('Building chat')
+            return HttpResponseRedirect(redirect_to='message')
         else:
             print('Not like')
     except Like.DoesNotExist:

@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'sametinder.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'tinder',
+        'NAME': 'newtinder',
         'USER': 'postgres',
         'PASSWORD': '2612',
         'HOST': 'localhost',
@@ -138,7 +138,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         # 'rest_framework.permissions.IsAdminUser',
         # 'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.AllowAny',
     ],
     "DEFAULT_PARSER_CLASSED": [
         'rest_framework.parsers.JSONParser',

@@ -41,6 +41,12 @@ class Like(models.Model):
     like = models.BooleanField(default=False)
 
 
+class Chat(models.Model):
+    owner_chat = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner_chat')
+    sub_chat = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sub_chat')
+    message = models.TextField()
+
+
 @receiver(post_save, sender=User)
 def save_or_create_profile(sender, instance, created, **kwargs):
     if created:

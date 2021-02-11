@@ -13,7 +13,6 @@ class RegisterUserView(generics.CreateAPIView):
 
 class ProfileListView(generics.ListAPIView):
     serializer_class = ProfileSerializer
-    queryset = ""
     permission_classes = [permissions.IsAuthenticated, ]
 
     def get_queryset(self):
@@ -23,7 +22,7 @@ class ProfileListView(generics.ListAPIView):
 class ProfileUpdateView(generics.UpdateAPIView):
     queryset = ProfileListView
     serializer_class = UpdateProfileSerializer
-    permission_classes = [IsOwnerProfile, ]
+    permission_classes = [permissions.IsAuthenticated, ]
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
@@ -52,12 +51,13 @@ class AddContentCreateView(generics.CreateAPIView):
 class AddContentListView(generics.ListAPIView):
     queryset = AddContent.objects.all()
     serializer_class = AddContentSerializer
+    permission_classes = [permissions.IsAuthenticated, ]
 
 
-class UpdateLocation(generics.UpdateAPIView):
+class UpdateLocation(generics.RetrieveUpdateAPIView):
     queryset = ""
     serializer_class = UpdateLocationProfileSerializer
-    permission_classes = [IsOwnerProfile, ]
+    permission_classes = [permissions.IsAuthenticated, ]
 
     def get_object(self):
         return Profile.objects.get(user=self.request.user)
@@ -75,6 +75,7 @@ class UpdateLocation(generics.UpdateAPIView):
 class CreateLikeView(generics.CreateAPIView):
     queryset = Like.objects.all()
     serializer_class = CreateLikeSerializer
+    permission_classes = [permissions.IsAuthenticated, ]
 
     def post(self, request, *args, **kwargs):
         try:
@@ -86,6 +87,21 @@ class CreateLikeView(generics.CreateAPIView):
     def perform_create(self, serializer):
         service.match(request=self.request, pk=self.request.data['profile'])
         serializer.save(user=self.request.user)
+
+
+class CreateMessageView(generics.CreateAPIView):
+    queryset = Chat.objects.all()
+    serializer_class = CreateMessageSerializer
+    permission_classes = [permissions.IsAuthenticated, ]
+
+    def perform_create(self, serializer):
+        serializer.save(owner_chat=self.request.user)
+
+
+class ListMessageView(generics.ListAPIView):
+    queryset = Chat.objects.all()
+    serializer_class = ListMessageSerializer
+    permission_classes = [permissions.IsAuthenticated, ]
 
 
 

@@ -14,4 +14,6 @@ urlpatterns = [
     path('profiles/addcontent/', AddContentCreateView.as_view()),
     path('profiles/updategeo/', UpdateLocation.as_view()),
     path('profiles/addlike/', CreateLikeView.as_view()),
+    path('profiles/writemessage/', CreateMessageView.as_view(), name='message'),
+    path('profiles/chat/', ListMessageView.as_view()),
 ]
