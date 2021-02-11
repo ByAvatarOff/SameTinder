@@ -19,7 +19,6 @@ class Profile(models.Model):
     phone = models.CharField(max_length=30, null=True)
     name = models.CharField(max_length=100, null=True)
     surname = models.CharField(max_length=100, null=True)
-    ip = models.GenericIPAddressField(protocol='IPv4', default=service.get_ip())
     group = models.CharField(max_length=100, choices=rate, default='base', null=True)
     geo_location = gis_models.PointField(srid=4326, null=True, blank=True, default=service.get_location())
 
@@ -34,6 +33,12 @@ class AddContent(models.Model):
 
     def __str__(self):
         return self.description
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    like = models.BooleanField(default=False)
 
 
 @receiver(post_save, sender=User)
