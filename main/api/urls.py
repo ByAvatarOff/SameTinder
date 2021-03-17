@@ -1,11 +1,10 @@
-from django.urls import path, include
+from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views import *
+from main.api.views import ProfileListView, ProfileUpdateView, AddContentListView,\
+    AddContentCreateView, UpdateLocation, CreateLikeView, CreateMessageView, ListMessageView
 
 
 urlpatterns = [
-    # path('auth/', include('djoser.urls')),
-    path('register/', RegisterUserView.as_view()),
     path('token/', TokenObtainPairView.as_view()),
     path('token/refresh/', TokenRefreshView.as_view()),
     path('profiles/', ProfileListView.as_view()),

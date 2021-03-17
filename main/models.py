@@ -4,8 +4,8 @@ from django.db.models.signals import post_save
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models as gis_models
-
-from main import service
+#
+from main.api import service
 
 
 class Profile(models.Model):

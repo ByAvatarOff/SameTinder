@@ -4,7 +4,6 @@ from django.contrib.gis.geoip2 import GeoIP2
 import http.client
 
 from django.contrib.gis.geos import Point
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from geoip2.errors import AddressNotFoundError
 from django.contrib.gis.measure import D
@@ -16,14 +15,13 @@ def get_user(request):
 
 
 def get_ip():
-    #TODO
     try:
-        conn = http.client.HTTPConnection("ifconfig.me")
-        conn.request("GET", "/ip")
+        conn = http.client.HTTPConnection('ifconfig.me')
+        conn.request('GET', '/ip')
         t = conn.getresponse().read()
         return t.decode('utf-8')
     except socket.gaierror:
-        return "0.0.0.0"
+        return '0.0.0.0'
 
 
 def get_location():
@@ -37,7 +35,7 @@ def get_location():
 
 
 def filter_group(request):
-    from main.models import Profile # error cannot import name "Profile"
+    from main.models import Profile
     profile = Profile.objects.get(user=request.user)
     if profile.group.lower() == 'base':
         return Profile.objects.filter(Q(geo_location__distance_lte=(profile.geo_location, D(km=10))))[:11]
