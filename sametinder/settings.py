@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'main',
     'accounts',
+    'chat',
 
     'rest_framework',
     'djoser',

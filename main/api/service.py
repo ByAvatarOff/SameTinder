@@ -55,7 +55,7 @@ def match(request, pk):
         like = Like.objects.get(profile=like_profile, user=request.user) # обьекта лайка, которые лайкали юзера
         like1 = Like.objects.get(profile=owner_profile, user=like_profile.user) # обьекты лайка, которые лайкал юзер
         if like.like and like1.like:
-            return HttpResponseRedirect(redirect_to='message')
+            return HttpResponseRedirect(redirect_to='profiles')
         else:
             print('Not like')
     except Like.DoesNotExist:

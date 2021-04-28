@@ -24,6 +24,7 @@ urlpatterns = [
     path('api/', include('main.api.urls')),
     path('jwt/', include('accounts.api.urls', namespace='accounts')),
     path('api-auth/', include('rest_framework.urls', namespace='auth')),
+    path('chat/', include('chat.api.urls')),
 
 ]
 

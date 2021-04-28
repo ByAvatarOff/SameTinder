@@ -2,9 +2,9 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from main.api.serializers import ProfileSerializer, UpdateProfileSerializer,\
     UpdateLocationProfileSerializer, CreateAddContentSerializer, AddContentSerializer,\
-    CreateLikeSerializer, CreateMessageSerializer, ListMessageSerializer
+    CreateLikeSerializer
 from main.api import service
-from main.models import Profile, AddContent, Like, Chat
+from main.models import Profile, AddContent, Like
 
 
 class ProfileListView(generics.ListAPIView):
@@ -83,21 +83,6 @@ class CreateLikeView(generics.CreateAPIView):
     def perform_create(self, serializer):
         service.match(request=self.request, pk=self.request.data['profile'])
         serializer.save(user=self.request.user)
-
-
-class CreateMessageView(generics.CreateAPIView):
-    queryset = Chat.objects.all()
-    serializer_class = CreateMessageSerializer
-    permission_classes = [permissions.IsAuthenticated, ]
-
-    def perform_create(self, serializer):
-        serializer.save(owner_chat=self.request.user)
-
-
-class ListMessageView(generics.ListAPIView):
-    queryset = Chat.objects.all()
-    serializer_class = ListMessageSerializer
-    permission_classes = [permissions.IsAuthenticated, ]
 
 
 

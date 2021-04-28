@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from main.models import Profile, AddContent, Like, Chat
+from main.models import Profile, AddContent, Like
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -49,19 +49,3 @@ class CreateLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
         fields = ['profile', 'like']
-
-
-class CreateMessageSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Chat
-        fields = ['message', 'sub_chat', ]
-
-
-class ListMessageSerializer(serializers.ModelSerializer):
-    owner_chat = UserSerializer()
-    sub_chat = UserSerializer()
-
-    class Meta:
-        model = Chat
-        fields = '__all__'

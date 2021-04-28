@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models as gis_models
-#
+
 from main.api import service
 
 
@@ -39,12 +39,6 @@ class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     like = models.BooleanField(default=False)
-
-
-class Chat(models.Model):
-    owner_chat = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner_chat')
-    sub_chat = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sub_chat')
-    message = models.TextField()
 
 
 @receiver(post_save, sender=User)
