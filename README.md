@@ -19,45 +19,4 @@
   * default - 20/day, 10 km radius
   * silver - 100/day, 20 km raius
   * gold - over 9 thousand  😅, any radius
-#### Profile endpoint gives this-like response:
-```json5
-{
-    "username": "WinglessFrame",
-    "bio": "Gleb, 18",
-    "location": {
-        "type": "Point",
-        "coordinates": [
-            27.554644,
-            53.909845
-        ]
-    },
-    "subscription": "silver",
-    "search_distance": 25,
-    "update_search_distance_url": "http://127.0.0.1:8000/app/api/profile/change_distance",
-    "create_post_url": "http://127.0.0.1:8000/app/api/profile/add_post",
-    "clear_viewed_url": "http://127.0.0.1:8000/app/api/profile/clear",
-    "matches": [
-        {
-            "participants": "WinglessFrame-admin",
-            "chat_url": "http://127.0.0.1:8000/app/api/chat/4"
-        }
-    ],
-    "posts": [
-        {
-            "image": "http://127.0.0.1:8000/media/posts/WinglessFrame/heart_RiUejOu.png",
-            "description": "Love from WinglessFrame",
-            "delete_update_url": "http://127.0.0.1:8000/app/api/profile/posts/5"
-        },
-        {
-            "image": "http://127.0.0.1:8000/media/posts/WinglessFrame/certificate.png",
-            "description": "My standard",
-            "delete_update_url": "http://127.0.0.1:8000/app/api/profile/posts/6"
-        }
-    ]
-}
-```
-###### location in JSON set like this
-```json5
-{"type": "Point", "coordinates": [27.554644, 53.909845]}
-```
-where first coordinate - **longitude** , second - **latitude**
+
